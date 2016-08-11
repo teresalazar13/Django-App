@@ -8,7 +8,7 @@ class Album(models.Model):
     album_logo = models.CharField(max_length=1000)
 
     def __str__(self):
-        return self.album_title + ', ' + self.artist + ", " + self.genre
+        return self.album_title + ', ' + self.artist + ', ' + self.genre
 
 
 class Song(models.Model):
@@ -17,4 +17,4 @@ class Song(models.Model):
     file_type = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.song_title + ", " + self.album
+        return self.song_title
