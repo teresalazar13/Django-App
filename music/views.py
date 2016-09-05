@@ -1,11 +1,11 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
 from django.core.urlresolvers import reverse_lazy
-from .models import Album
+from .models import Album, Song
 
 
 class IndexView(generic.ListView):
@@ -14,6 +14,14 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Album.objects.all()
+
+
+class Songs(generic.ListView):
+    template_name = 'music/songs.html'
+    context_object_name = 'all_songs'
+
+    def get_queryset(self):
+        return Song.objects.all()
 
 
 class DetailView(generic.DetailView):
@@ -34,6 +42,21 @@ class AlbumUpdate(UpdateView):
 class AlbumDelete(DeleteView):
     model = Album
     success_url = reverse_lazy('music:index')
+
+
+def favorite(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    try:
+        selected_song = album.song_set.get(pk=request.POST['song'])
+    except (KeyError, Song.DoesNotExist):
+        return render(request, 'music/detail.html', {
+            'album': album,
+            'error_message': "You did not select a valid song",
+        })
+    else:
+        selected_song.is_favorite = True
+        selected_song.save()
+        return render(request, 'music/detail.html', {'album': album})
 
 
 class UserFormView(View):

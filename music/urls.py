@@ -8,6 +8,10 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     # /music/register
     url(r'^register/$', views.UserFormView.as_view(), name='register'),
+    # /music/songs
+    url(r'^songs/$', views.Songs.as_view(), name='songs'),
+    # /music/id/favorite
+    url(r'^(?P<album_id>[0-9]+)/favorite/$', views.favorite, name='favorite'),
     # /music/id/
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # /music/album/add
