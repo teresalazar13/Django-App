@@ -10,23 +10,32 @@
         </div>
 
         <div class="col-md-8">
-            <table class="table table-borderless">
+            <table class="table table-borderless" style="margin: 10px 10px 10px 50px;">
                 <form action="{% url 'music:favorite' album.id %}" method="post">
                     {% csrf_token %}
                     {% for song in album.song_set.all %}
                         <tr>
                             <td>
-                                <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}">
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
                                 <label for="song{{ forloop.counter }}">
                                     {{ song.song_title }}
+                            </td>
+                            <td>
                                     {% if song.is_favorite %}
-                                        <img src="http://i.imgur.com/b9b13Rd.png" alt="">
+                                        <button type="submit" class="btn btn-link" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}">
+                                            <span class="glyphicon glyphicon-star" style="color: #FDE16D;"></span>
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-link" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}">
+                                            <span class="glyphicon glyphicon-star-empty" style="color: black;"></span>
+                                        </button>
                                     {% endif %}
                                 </label>
                             </td>
                         </tr>
                     {%  endfor %}
-                    <input type="submit" value="Favorite">
                 </form>
             </table>
         </div>

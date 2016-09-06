@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^songs/$', views.Songs.as_view(), name='songs'),
     # /music/id/favorite
     url(r'^(?P<album_id>[0-9]+)/favorite/$', views.favorite, name='favorite'),
+    # /music/id/favorite_song
+    url(r'^songs/(?P<song_id>[0-9]+)/favorite_song/$', views.favorite_song, name='favorite_song'),
     # /music/id/
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # /music/album/add
