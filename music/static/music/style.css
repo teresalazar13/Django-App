@@ -122,7 +122,8 @@ body {
 
 #button-trash {
     border: double aliceblue;
-    margin-top: 30%;
+    margin-top: 20%;
+    background-color: aliceblue;
 }
 
 .highlight-text {

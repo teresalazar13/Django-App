@@ -21,5 +21,8 @@ class Song(models.Model):
     file_type = models.CharField(max_length=10)
     is_favorite = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return reverse('music:songs')
+
     def __str__(self):
         return self.song_title

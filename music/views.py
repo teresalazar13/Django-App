@@ -35,6 +35,11 @@ class AlbumCreate(CreateView):
     fields = ['artist', 'album_title', 'genre', 'album_logo']
 
 
+class SongCreate(CreateView):
+    model = Song
+    fields = ['song_title', 'album', 'file_type']
+
+
 class AlbumUpdate(UpdateView):
     model = Album
     fields = ['artist', 'album_title', 'genre', 'album_logo']
